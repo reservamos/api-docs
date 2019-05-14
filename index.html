@@ -63,7 +63,7 @@ importantes y flujos del API.</p>
 <pre class="highlight shell"><code>curl -X GET <span class="se">\</span>
   -H <span class="s1">'Authorization: Token token=f986373f694ffdf9cfbae45ba23f3d8c'</span> <span class="se">\</span>
   -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="s1">'http://reservamos-sandbox.herokuapp.com/api/v2/places.json?q=monterrey'</span>
+  <span class="s1">'http://reservamos-frontline-sandbox.herokuapp.com/api/v2/places.json?q=monterrey'</span>
 </code></pre>
 
 <blockquote>
@@ -177,7 +177,7 @@ Content-Type: application/json; charset=utf-8
   -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   -d <span class="s1">'{ "origin": "guadalajara", "destination": "ciudad-de-mexico", "date": "01-04-2019", "passengers": ["adult"]  }'</span> <span class="se">\</span>
-  <span class="s1">'http://reservamos-sandbox.herokuapp.com/api/v2/search.json'</span>
+  <span class="s1">'http://reservamos-frontline-sandbox.herokuapp.com/api/v2/search.json'</span>
 </code></pre>
 
 <blockquote>
@@ -3860,7 +3860,7 @@ Content-Type: application/json; charset=utf-8
 <pre class="highlight shell"><code>curl -X GET <span class="se">\</span>
   -H <span class="s1">'Authorization: Token token=f986373f694ffdf9cfbae45ba23f3d8c'</span> <span class="se">\</span>
   -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="s1">'http://reservamos-sandbox.herokuapp.com/api/v2/search/84273582?type=bus'</span>
+  <span class="s1">'http://reservamos-frontline-sandbox.herokuapp.com/api/v2/search/84273582?type=bus'</span>
 </code></pre>
 
 <h3 id="path-parameters">Path Parameters</h3>
@@ -6228,7 +6228,7 @@ Content-Type: application/json; charset=utf-8
 <pre class="highlight shell"><code>curl -X POST <span class="se">\</span>
   -H <span class="s1">'Authorization: Token token=f986373f694ffdf9cfbae45ba23f3d8c'</span> <span class="se">\</span>
   -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="s1">'http://reservamos-sandbox.herokuapp.com/api/v2/trips/terminal-mty-villagran-terminal-politecnico-20sep182200-5188658-89?adult=1'</span>
+  <span class="s1">'http://reservamos-frontline-sandbox.herokuapp.com/api/v2/trips/terminal-mty-villagran-terminal-politecnico-20sep182200-5188658-89?adult=1'</span>
 </code></pre>
 
 <blockquote>
@@ -6422,6 +6422,436 @@ Content-Type: application/json; charset=utf-8
 <td><code class="prettyprint">infant</code><br><em>opcional</em></td>
 <td>integer</td>
 <td>Mostrar la cotización del viaje correspondiente a la cantidad de pasajeros infantes de la compra</td>
+</tr>
+</tbody></table>
+
+          <h1 id="purchases">Purchases</h1>
+
+<h2 id="crear-un-intento-de-compra">Crear un intento de compra</h2>
+<pre class="highlight shell"><code>curl -X POST <span class="se">\</span>
+  -H <span class="s1">'Authorization: Token token={api_key}'</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -H <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{
+        "departs": "guad-mex-20sep180600-1464-4",
+        "passenger_selection": {
+          "adult": 1
+        },
+        "seen_price": "756.00",
+        "ad_attribution": true,
+        "tracker_id": "165d3c43ff693-024d98eff88c33-34677908-13c680-165d3c43ff7134"
+      }'</span><span class="se">\</span>
+  <span class="s1">'http://reservamos-frontline-sandbox.herokuapp.com/api/v2/purchases.json'</span>
+</code></pre>
+
+<blockquote>
+<p>Ejemplo de una respuesta exitosa</p>
+</blockquote>
+<pre class="highlight plaintext"><code>HTTP/1.1 200 OK
+Status: 200 OK
+Connection: close
+Content-Type: application/json; charset=utf-8
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"purchase"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"_-VXH2A_1aI"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"warnings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"attempt"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"passenger_selection"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"adult"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-09-17 15:33:27 -0500"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"purchaser_first_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"purchaser_last_name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"purchaser_gender"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"purchaser_nationality_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"purchaser_nationality"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"wants_insurance"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"available_payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"credit_card"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"paypal"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"oxxo"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"store"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"bank_account"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"qualifies_for_insurance"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"international"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"estimated_completed_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"qualifies_for_months_payment"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"qualifies_for_monthly_installments"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payment_plans"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"visa_mc"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"3"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mf">925.27</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">66.95</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"monthly_payment"</span><span class="p">:</span><span class="w"> </span><span class="mf">308.42</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"6"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mf">951.02</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">92.7</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"monthly_payment"</span><span class="p">:</span><span class="w"> </span><span class="mf">158.5</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"amex"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"3"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mf">916.69</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">58.37</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"monthly_payment"</span><span class="p">:</span><span class="w"> </span><span class="mf">305.56</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"6"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mf">933.85</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">75.53</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"monthly_payment"</span><span class="p">:</span><span class="w"> </span><span class="mf">155.64</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"interests_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"monthly_selected_plan"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"monthly_selected_plan_details"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">840</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"service_fee_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"markup"</span><span class="p">:</span><span class="w"> </span><span class="mf">90.72</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"insurance_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11.6"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"extras"</span><span class="p">:</span><span class="w"> </span><span class="s2">"102.32"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"discount_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"858.32"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"total_before_lock"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"seen_adult_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"756.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"departs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"departure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-09-20T01:00:00.000-05:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"arrival"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-09-20T07:30:00.000-05:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">390</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"pricing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">840</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"service_fees"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"provider_discount"</span><span class="p">:</span><span class="w"> </span><span class="mi">84</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">756</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"trip_slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guad-mex-20sep180600-1464-4"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"one_way_purchases"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5679361</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"attempt"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"trip_slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guad-mex-20sep180600-1464-4"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"transporter_key"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"trip"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guad-mex-20sep180600-1464-4"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"origin_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t-guadalajara-central-nueva"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"destination_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t-ciudad-de-mexico-central-norte"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"pricing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">840</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">840</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"discounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single_on_round_trip_discount"</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">840</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">680</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single_trip_discount"</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">840</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">756</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"departure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-09-20T01:00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"arrival"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-09-20T07:30:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Primera"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"line_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"primera-plus"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"stops"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"passenger_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"minor"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"special"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"older"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"teacher"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"student"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"travel_agency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Grupo Flecha Amarilla"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"travel_agency_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reserbus"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"process_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"automatic"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"is_buyable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"product_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guadalajara_ciudad-de-mexico"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"transport_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bus"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">390</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"connection_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nt">"prices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"420.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"420.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"minor"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"420.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"420.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"special"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"840.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"840.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"420.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"420.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"older"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"630.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"630.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"teacher"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"420.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"420.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"student"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">840</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"service_fees"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"provider_discount"</span><span class="p">:</span><span class="w"> </span><span class="mi">84</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">756</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"discounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5350947</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single_trip_discount"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"756.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"taxes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"756.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">317958685</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-20T21:19:14.893-05:00"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-09-16T01:35:53.707-05:00"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="nt">"tickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+          </span><span class="p">],</span><span class="w">
+          </span><span class="nt">"markup_rule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12%"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"origin_city"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"destination_city"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gfa"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-09-14T16:50:10.362-05:00"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"discount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"terminals"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"t-guadalajara-central-nueva"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t-guadalajara-central-nueva"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Central Nueva"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"city_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guadalajara"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Guadalajara"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">20.6223746</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"long"</span><span class="p">:</span><span class="w"> </span><span class="mf">-103.2851073</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"t-ciudad-de-mexico-central-norte"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t-ciudad-de-mexico-central-norte"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Central del Norte"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"city_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ciudad-de-mexico"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ciudad de M\u00e9xico"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">19.4794829</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"long"</span><span class="p">:</span><span class="w"> </span><span class="mf">-99.139533</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"lines"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"primera-plus"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Primera Plus"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"abbr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"primera-plus"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"human_abbr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Primera Plus"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"transporter_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Grupo Flecha Amarilla"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"allows_seat_selection"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"volatile_pricing"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"average_ratings"</span><span class="p">:</span><span class="w"> </span><span class="mf">4.27</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"last_ratings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gilberto Murillo"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"rating"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No tienen la famosa conexi\u00f3n el\u00e9ctrica como dice su video... ocasionando no poder cargas celulares. La experiencia general estuvo bien. "</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LUCIO JAVIER CRUZ FIGUEROA"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"rating"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"las pel\u00edculas no tienen opci\u00f3n con subt\u00edulos"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mar\u00eda Mercedes P\u00e9rez Betancourt"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"rating"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Todo muy bien gracias"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"total_ratings"</span><span class="p">:</span><span class="w"> </span><span class="mi">6881</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"bathroom"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"tv"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"wifi"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"service_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"first_class"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"logo_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:\/\/rsrbs-production.s3.amazonaws.com\/uploads\/line\/logo\/4\/primera-plus.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"copyright_protected"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ally"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ticket_counter_exchange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"redirection_info"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"commission_estimate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.0"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"airports"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"carriers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"cities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"guadalajara"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guadalajara"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Guadalajara"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jalisco"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"state_abbr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jal"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"M\u00e9xico"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"country_abbr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mx"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"ciudad-de-mexico"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ciudad-de-mexico"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ciudad de M\u00e9xico"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Distrito Federal"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"state_abbr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"M\u00e9xico"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"country_abbr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mx"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"fare_services"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"inner_city_connections"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Ejemplo de error</p>
+</blockquote>
+<pre class="highlight plaintext"><code>HTTP/1.1 422 Unprocessable Entity
+Status: 422 Unprocessable Entity
+Connection: close
+Content-Type: application/json; charset=utf-8
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tu viaje de vuelta no puede ser antes de tu viaje de ida"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST /purchases.json</code></p>
+
+<h3 id="body-parameters">Body Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Nombre</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">departs</code><br><em>requerido</em></td>
+<td>string</td>
+<td>Identificador (slug) del viaje de salida.  <br><strong>Ejemplos:</strong> <code class="prettyprint">mty-gdl-9sep0700</code>, <br><code class="prettyprint">mex-gdl-9sep2320</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">passenger_selection</code><br><em>requerido</em></td>
+<td>objeto</td>
+<td>Pasajeros seleccionados por el usuario</td>
+</tr>
+<tr>
+<td><code class="prettyprint">returns</code><br><em>opcional</em></td>
+<td>string</td>
+<td>Identificador (slug) del viaje de regreso.  <br><strong>Ejemplos:</strong> <code class="prettyprint">gdl-mty-16sep0700</code>, <br> <code class="prettyprint">gdl-mex-17sep2200</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">client_key</code><br><em>opcional</em></td>
+<td>string</td>
+<td>Código con el que identifiques esta compra<br> en tu sistema. <br><strong>Ejemplos:</strong> <code class="prettyprint">31000</code>, <code class="prettyprint">I898723ZQ3</code></td>
+</tr>
+</tbody></table>
+
+<h3 id="seleccion-de-pasajeros">Seleccion de pasajeros</h3>
+
+<table><thead>
+<tr>
+<th>Nombre</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">adult</code><br><em>opcional</em></td>
+<td>integer</td>
+<td>Cantidad de adultos en el intento de compra</td>
+</tr>
+<tr>
+<td><code class="prettyprint">child</code><br><em>opcional</em></td>
+<td>integer</td>
+<td>Cantidad de niños en el intento de compra.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">infant</code><br><em>opcional</em></td>
+<td>integer</td>
+<td>Cantidad de infantes en el intento de compra.</td>
 </tr>
 </tbody></table>
 
